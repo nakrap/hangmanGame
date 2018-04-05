@@ -1,0 +1,39 @@
+#navwidth {
+    margin: 0px 50px 0px 50px;
+}
+
+.jumbotron {
+    margin-top: 50px;
+    padding-top: 75px;
+    padding-bottom: 50px;
+    text-align: center;
+    background-image: url(/Users/nickakrap/Desktop/northwestern/hangmanGame/assets/images/jumbotronBackground.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    text-shadow: black 0.3em 0.3em 0.3em;
+}
+
+h1 {
+    padding: 20px;
+}
+
+p {
+    color: white;
+    padding: 10px; 
+}
+
+.row {
+    text-align: center;
+}
+
+.space {
+    margin-bottom: 800px;
+}
+
+#navwidth {
+    text-align:center;
+    float:none;
+    width: 245px;
+    margin: 0 auto;
+  }
