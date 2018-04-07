@@ -90,7 +90,7 @@ h1 {
   }
 
   .availableAlphabet:hover {
-      background-color: navy;
+      background-color: rgb(1, 1, 160);
   }
 
   .usedAlphabet {
@@ -102,6 +102,6 @@ h1 {
     padding: 5px;
     margin: 5px;
     color: rgb(255, 255, 255);
-    background-color: #D2691E;
+    background-color: rgb(182, 83, 12);
     border: 2px dashed black;
   }

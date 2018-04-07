@@ -64,7 +64,7 @@ function newPuzzle(){
 
 } 
 
-//Once the letter it's clicked/used, put it in the 'used' box.
+//Once the letter is clicked/used, put it in the 'used' box.
 function selectLetter(selected){
     selected.style.visibility = 'hidden';
     var l = document.createElement('div');
@@ -72,7 +72,7 @@ function selectLetter(selected){
     l.className = 'usedAlphabet';
     usedBox.appendChild(l);
 
-//Puts chosen letters into the randomly generated mystery word, and determines if it's in the word or not.
+    //Puts chosen letters into the randomly generated mystery word, and determines if it's in the word or not.
     var letter = selected.innerHTML;
     var current = '';
     var correct = false;
@@ -94,12 +94,12 @@ for(var i = 0; i < puzzle.length; i++){
     if(correct){
         document.getElementById('right').currentTime = 0;
         document.getElementById('right').play();
-        l.style.backgroundColor = 'green';
+        l.style.backgroundColor = 'limegreen';
     }
     else{
         document.getElementById('wrong').currentTime = 0;
         document.getElementById('wrong').play();
-        l.style.backgroundColor = 'red';
+        l.style.backgroundColor = 'maroon';
         lives --;
         if(lives == 0) alert("You're out of lives... Sorry! The correct answer was: " + puzzle);
 }}
