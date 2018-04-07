@@ -2,6 +2,11 @@
     margin: 0px 50px 0px 50px;
 }
 
+.container-fluid {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 .jumbotron {
     margin-top: 50px;
     padding-top: 75px;
@@ -14,13 +19,24 @@
     text-shadow: black 0.3em 0.3em 0.3em;
 }
 
-h1 {
-    padding: 20px;
+.jumbotron p {
+    margin-bottom: 0px;
 }
 
-p {
+h1 {
+    padding: 20px;
+    margin-bottom: 0px;
+    padding-bottom: 40px;
+}
+
+.p1 {
+    color: white;
+}
+
+.p2 {
     color: white;
     padding: 10px; 
+    padding-bottom: 40px;
 }
 
 .row {

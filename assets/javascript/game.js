@@ -86,9 +86,11 @@ for(var i = 0; i < puzzle.length; i++){
     else current += document.getElementById('letter_' + i).innerHTML;
 }
     //You win the game once all the letters are picked correctly.
-    if(current == puzzle) alert("You Win!!!");
+    if(current == puzzle) alert("Congratulations!!! You Win!!!");
 
-    //Play right sound if letter is in the word, play wrong sound if it's not in the word.
+    //Play right sound if letter is in the word, play wrong sound if it's not in the word. 
+    //When a letter is 'used' change background-color of letter to green if correct, red if wrong.
+    //Alert if 6 wrong guesses.
     if(correct){
         document.getElementById('right').currentTime = 0;
         document.getElementById('right').play();
