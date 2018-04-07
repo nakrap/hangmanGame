@@ -6,25 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Hangman</title>
     
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Montserrat" rel="stylesheet">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
         crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
     
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />    
-    
-    
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css" media="screen"> -->
-    <!-- <script src="assets/javascript/game.js" type="text/javascript"></script> -->
+   
 
 </head>
 
-<body>
+<body onload="initializeGame()">
     
 
     <nav class="navbar navbar-inverse navbar-fixed-top" id="navigation">
@@ -59,7 +55,7 @@
         <div class="container">
             <h1>Hangman</h1>
             <p>Guess the "mystery word" before running out of lives!</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Start</a></p>
+            <div class="btn btn-primary btn-lg" href="#" role="button" onclick="startGame()">Start</div> 
         </div>  
     </div>
 
@@ -67,38 +63,18 @@
     <section class="game">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-12">
-                    <div id="letters">
-                    </div>
+                <div class="col-xs-12"> 
+                    <div id="available" class="panel"></div>
                 </div>
             </div> 
             <div class="row">
                 <div class="col-xs-12"> 
-                    <p id="catagoryName"></p>
+                    <div id="puzzle" class="panel"></div>
                 </div>
             </div> 
             <div class="row">
-                <div class="col-xs-12"> 
-                    <div id="hold">
-                    </div>
-                </div>
-            </div> 
-            <div class="row">
-                <div class="col-xs-12"> 
-                    <p id="mylives"></p>
-                </div>
-            </div> 
-            <div class="row">
-                <div class="col-xs-12"> 
-                    <p id="clue">Clue -</p>  
-                </div>
-            </div> 
-            <div class="row">
-                <div class="col-xs-12"> 
-                    <div class="container space">
-                        <button id="hint">Hint</button>
-                        <button id="reset">Play again</button>
-                    </div>
+                <div class="col-xs-12 space"> 
+                    <div id="used" class="panel"></div>
                 </div>
             </div> 
         </div>
@@ -117,7 +93,15 @@
     </footer>
 
 
-    <script type="text/javascript" src="/Users/nickakrap/Desktop/northwestern/hangmanGame/assets/javascript/game.js"></script>
+<audio id="right" preload="auto">
+    <source src="assets/sounds/rightSound.mp3">
+</audio>
+<audio id="wrong" preload="auto">
+    <source src="assets/sounds/wrongSound.mp3">
+</audio>
+
+
+    <script type="text/javascript" src="assets/javascript/game.js"></script> 
 
 
 </body>

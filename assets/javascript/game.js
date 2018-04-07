@@ -1,178 +1,103 @@
-//Alphabet Variables    
-    var alphabet = ["a", "b", "c", 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's','t', 'u', 'v', 'w', 'x', 'y', 'z'];
-  
-//Array of different categories              
-    var categories;
-//Randomly chosen category
-    var chosenCategory;
-//Hint for the correct mystery word
-    var getHint;
-//Mystery Word
-    var word;
-//Letter guess
-    var guess;
-//Letters already guessed
-    var guesses = [];
-//How many lives player has
-    var lives;
-//Count correct guesses
-    var counter;
-//Number of letters in a word defined by '_'
-    var space;
 
-
-//Number of lives as shown to the player
-    var showLives = document.getElementById("mylives");
-//Category that is shown to player
-    var showCatagory = document.getElementById("category");
-//Button to click to get a hint  
-    var getHint = document.getElementById("hint");
-//The actual hint given to player  
-    var showClue = document.getElementById("clue");
+//When you click the start button, this function runs to begin the game.
+function startGame(){
+    newPuzzle();
+}
 
 
 
-//Create the Alphabet players will choose from 
-    var buttons = function () {
-        myButtons = document.getElementById("buttons");
-        letters = document.createElement("ul");
 
-    for (var i = 0; i < alphabet.length; i++) {
-        letters.id = "alphabet";
-        list = document.createElement("li");
-        list.id = "letter";
-        list.innerHTML = alphabet[i];
-        check();
-        myButtons.appendChild(letters);
-        letters.appendChild(list);
+//Sets variable that chooses from all the different puzzles we have for the game.
+    var puzzles = ["Billy the Kid", "Butch Cassidy", "Jesse James", "Buffalo Bill", "Davy Crockett", "Wild Bill Hickok", "Wyatt Earp"];
+
+//Creating variables to be able to reference the game divs.
+    var availableBox;
+    var puzzleBox;
+    var usedBox;
+
+//Shows you how many guesses you have remaining before losing.
+    var lives = 6;
+
+//Create variable to be able to 'hide' the puzzle that is generated.
+    var puzzle;
+
+//Create variable for alphabet.
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+
+
+
+
+//Function is called on load, and simplifies ability to reference our 3 game divs.
+function initializeGame(){
+    availableBox = document.getElementById('available');
+    puzzleBox = document.getElementById('puzzle');
+    usedBox = document.getElementById('used')
+
+//Create the available alphabet buttons.
+    for(i=0; i < alphabet.length; i++){
+        var l = document.createElement('div');
+        l.innerHTML = alphabet[i];
+        l.className = 'availableAlphabet';
+        l.onclick = function(){selectLetter(this); };
+        availableBox.appendChild(l);
     }
-  }
+}
 
+//Changes the HTML of our puzzle div box, randomly chooses a puzzle from our puzzles array.
+function newPuzzle(){
+    var puzzleID = Math.floor(Math.random()*puzzles.length)
+    puzzle = puzzles[puzzleID].toUpperCase();
 
-  
-  // Select Catagory
-  var selectCat = function () {
-    if (chosenCategory === categories[0]) {
-      catagoryName.innerHTML = "The Chosen Category Is Premier League Football Teams";
-    } else if (chosenCategory === categories[1]) {
-      catagoryName.innerHTML = "The Chosen Category Is Films";
-    } else if (chosenCategory === categories[2]) {
-      catagoryName.innerHTML = "The Chosen Category Is Cities";
+    //Create a div and assign it a CSS class so that our puzzle turns into blank boxes, so that we can add a letter to it later.
+    puzzleBox.innerHTML = '';
+    for (i = 0; i < puzzle.length; i++){ 
+        
+        var box = document.createElement('div');
+        box.id = 'letter_' + i;
+
+        if(puzzle[i]==' ') box.className = 'box';
+        else box.className = 'box letter';
+
+        puzzleBox.appendChild(box);
     }
-  }
-  console.log (selectCat());
 
-  // Create guesses ul
-   result = function () {
-    wordHolder = document.getElementById('hold');
-    correct = document.createElement('ul');
+} 
 
-    for (var i = 0; i < word.length; i++) {
-      correct.setAttribute('id', 'my-word');
-      guess = document.createElement('li');
-      guess.setAttribute('class', 'guess');
-      if (word[i] === "-") {
-        guess.innerHTML = "-";
-        space = 1;
-      } else {
-        guess.innerHTML = "_";
-      }
+//Once the letter it's clicked/used, put it in the 'used' box.
+function selectLetter(selected){
+    selected.style.visibility = 'hidden';
+    var l = document.createElement('div');
+    l.innerHTML = selected.innerHTML;
+    l.className = 'usedAlphabet';
+    usedBox.appendChild(l);
 
-      guesses.push(guess);
-      wordHolder.appendChild(correct);
-      correct.appendChild(guess);
+//Puts chosen letters into the randomly generated mystery word, and determines if it's in the word or not.
+    var letter = selected.innerHTML;
+    var current = '';
+    var correct = false;
+
+for(var i = 0; i < puzzle.length; i++){
+    if(puzzle[i] == letter){
+        document.getElementById('letter_' + i).innerHTML = letter;
+        correct = true;
+    }   
+    if(document.getElementById('letter_' + i).innerHTML == '') current += ' ';
+    else current += document.getElementById('letter_' + i).innerHTML;
+}
+    //You win the game once all the letters are picked correctly.
+    if(current == puzzle) alert("You Win!!!");
+
+    //Play right sound if letter is in the word, play wrong sound if it's not in the word.
+    if(correct){
+        document.getElementById('right').currentTime = 0;
+        document.getElementById('right').play();
+        l.style.backgroundColor = 'green';
     }
-  }
-  
-  // Show lives
-   comments = function () {
-    showLives.innerHTML = "You have " + lives + " lives";
-    if (lives < 1) {
-      showLives.innerHTML = "Game Over";
-    }
-    for (var i = 0; i < guesses.length; i++) {
-      if (counter + space === guesses.length) {
-        showLives.innerHTML = "You Win!";
-      }
-    }
-  }
-
-
-
-// OnClick Function
-check = function () {
-    list.onclick = function () {
-      var guess = (this.innerHTML);
-      this.setAttribute("class", "active");
-      this.onclick = null;
-      for (var i = 0; i < word.length; i++) {
-        if (word[i] === guess) {
-          guesses[i].innerHTML = guess;
-          counter += 1;
-        } 
-      }
-      var j = (word.indexOf(guess));
-      if (j === -1) {
-        lives -= 1;
-        comments();
-        animate();
-      } 
-      else {
-        comments();
-      }
-    }
-  }
-  
-    
-  // Play
-  play = function () {
-    categories = [
-        ["everton", "liverpool", "swansea", "chelsea", "hull", "manchester-city", "newcastle-united"],
-        ["alien", "dirty-harry", "gladiator", "finding-nemo", "jaws"],
-        ["manchester", "milan", "madrid", "amsterdam", "prague"]
-    ];
-
-    chosenCategory = categories[Math.floor(Math.random() * categories.length)];
-    word = chosenCategory[Math.floor(Math.random() * chosenCategory.length)];
-    word = word.replace(/\s/g, "-");
-    console.log(word);
-    buttons();
-
-    guesses = [ ];
-    lives = 10;
-    counter = 0;
-    space = 0;
-    result();
-    comments();
-    selectCat();
-    canvas();
-  }
-
-  play();
-  
-  // Hint
-
-    hint.onclick = function() {
-
-      hints = [
-        ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
-        ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
-        ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
-    ];
-
-    var catagoryIndex = categories.indexOf(chosenCategory);
-    var hintIndex = chosenCategory.indexOf(word);
-    showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex];
-  };
-
-   // Reset
-
-  document.getElementById('reset').onclick = function() {
-    correct.parentNode.removeChild(correct);
-    letters.parentNode.removeChild(letters);
-    showClue.innerHTML = "";
-    context.clearRect(0, 0, 400, 400);
-    play();
-  }
-
-});
+    else{
+        document.getElementById('wrong').currentTime = 0;
+        document.getElementById('wrong').play();
+        l.style.backgroundColor = 'red';
+        lives --;
+        if(lives == 0) alert("You're out of lives... Sorry! The correct answer was: " + puzzle);
+}}
