@@ -66,7 +66,7 @@ function newPuzzle(){
 
 //Once the letter is clicked/used, put it in the 'used' box.
 function selectLetter(selected){
-    selected.style.visibility = 'hidden';
+    selected.style.visibility = 'hidden'; 
     var l = document.createElement('div');
     l.innerHTML = selected.innerHTML;
     l.className = 'usedAlphabet';
